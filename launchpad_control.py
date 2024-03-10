@@ -6,6 +6,7 @@ import tkinter as tk
 import tkinter.messagebox
 from functools import partial
 
+
 class launchpad_button(tk.Button):
     mididevice = None
     def __init__(self, *args, buttonID=0, midicommandLed=144, **kwargs):
@@ -52,7 +53,13 @@ def button_handler(button_str):
     okbutton = tk.Button(colorwindow, text="Update", command=lambda: update_color(button, redslider.get(), greenslider.get(), blinkvar.get()))
     okbutton.pack()
     colorwindow.mainloop()
-    
+
+
+
+
+
+
+
 if __name__ == "__main__":
     print(datetime.datetime.now().strftime("%H:%M:%S"))
 
@@ -101,17 +108,16 @@ if __name__ == "__main__":
     #Button grid:
     for i in range(8): # 8 Zeilen
         for j in range(8): # 8 Spalten
-            globals()["Btn"+str(i)+str(j)] = launchpad_button(mainwindow, buttonID=16*i+j, text=labels_grid[i]+str(j+1), height=button_size, width=button_size, compound="c", image=pixel, command=partial(button_handler, "Btn"+str(i)+str(j)))
-            globals()["Btn"+str(i)+str(j)].place(x=(button_size+button_space)*j+margin_top_left, y=(button_size+button_space)*(i+1.2)+margin_top_left)
-            buttons.append(globals()["Btn"+str(i)+str(j)])
+            globals()["Btn"+labels_grid[i]+str(j)] = launchpad_button(mainwindow, buttonID=16*i+j, text=labels_grid[i]+str(j+1), height=button_size, width=button_size, compound="c", image=pixel, command=partial(button_handler, "Btn"+labels_grid[i]+str(j)))
+            globals()["Btn"+labels_grid[i]+str(j)].place(x=(button_size+button_space)*j+margin_top_left, y=(button_size+button_space)*(i+1.2)+margin_top_left)
+            buttons.append(globals()["Btn"+labels_grid[i]+str(j)])
             
     #Buttons right:
     for i in range(8):
-        globals()["Btn"+str(i)] = launchpad_button(mainwindow, buttonID=16*i+8, text=labels_grid[i], height=button_size, width=button_size, compound="c", image=pixel, command=partial(button_handler, "Btn"+str(i)))
-        globals()["Btn"+str(i)].place(y=(button_size+button_space)*i+margin_top_left+(button_size+button_space)*1.2, x=margin_top_left+8.2*(button_size+button_space))
-        buttons.append(globals()["Btn"+str(i)])
+        globals()["Btn"+labels_grid[i]] = launchpad_button(mainwindow, buttonID=16*i+8, text=labels_grid[i], height=button_size, width=button_size, compound="c", image=pixel, command=partial(button_handler, "Btn"+labels_grid[i]))
+        globals()["Btn"+labels_grid[i]].place(y=(button_size+button_space)*i+margin_top_left+(button_size+button_space)*1.2, x=margin_top_left+8.2*(button_size+button_space))
+        buttons.append(globals()["Btn"+labels_grid[i]])
     
     mainwindow.mainloop()
 
     del midiout
-
